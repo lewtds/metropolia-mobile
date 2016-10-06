@@ -1,0 +1,1 @@
+An effort to create a better mobile experience for Metropolia UAS students. We start with an Android app that shows the week's lunch menu. Note that you'll need to create your own Firebase console and generate your own Android's `google-service.json` file.
