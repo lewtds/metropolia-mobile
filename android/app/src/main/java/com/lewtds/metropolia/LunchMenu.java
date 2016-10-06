@@ -11,7 +11,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class LunchMenu extends AppCompatActivity {
 
@@ -27,12 +31,13 @@ public class LunchMenu extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<List<Dish>>> type = new GenericTypeIndicator<List<List<Dish>>>() {};
                 List<List<Dish>> weekMenu = dataSnapshot.getValue(type);
-                System.out.println(weekMenu);
                 TextView textView = (TextView) findViewById(R.id.haha);
 
-                StringBuilder builder = new StringBuilder("Today's lunch menu for Vanhamaantie is:\n\n");
+                int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+                String dayName = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new Date());
+                StringBuilder builder = new StringBuilder(dayName + "'s lunch menu for Vanhamaantie is:\n\n");
 
-                for (Dish d : weekMenu.get(0)) {
+                for (Dish d : weekMenu.get(dayOfWeek - 1)) {
                     builder.append(d.descriptionEn);
                     builder.append("\n");
                 }
