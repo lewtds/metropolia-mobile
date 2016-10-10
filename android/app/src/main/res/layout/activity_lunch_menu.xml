@@ -9,7 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.lewtds.metropolia.LunchMenu">
 
-
     <TextView
         android:id="@+id/haha"
         android:layout_width="wrap_content"
@@ -17,4 +16,11 @@
         android:text="Hello World!"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <ListView
+        android:id="@+id/dishes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/haha"
+        android:layout_alignParentStart="true"/>
 </RelativeLayout>

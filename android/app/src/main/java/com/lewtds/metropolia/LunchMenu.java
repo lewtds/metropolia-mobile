@@ -1,7 +1,10 @@
 package com.lewtds.metropolia;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -12,6 +15,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +43,7 @@ public class LunchMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lunch_menu);
         String venue = "vanhamaantie";
+        final Activity currentActivity = this;
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(String.format("food/lunch_menu/%s/current_week", venue));
@@ -53,11 +58,16 @@ public class LunchMenu extends AppCompatActivity {
                 String dayName = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new Date());
                 StringBuilder builder = new StringBuilder(dayName + "'s lunch menu for Vanhamaantie is:\n\n");
 
+                List<String> dishes = new ArrayList<>();
                 for (Dish d : menu) {
-                    builder.append(d.descriptionEn);
-                    builder.append("\n");
+                    dishes.add(d.descriptionEn);
                 }
                 textView.setText(builder.toString());
+
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(currentActivity, android.R.layout.simple_list_item_1, dishes);
+                ListView listView = (ListView) findViewById(R.id.dishes);
+                listView.setAdapter(adapter);
             }
 
             @Override
